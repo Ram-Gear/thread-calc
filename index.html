@@ -4,8 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>60° Thread Calc – Sherline Single-Point Thread Calculator | Ram-Gear Manufacturing</title>
-<meta name="description" content="Browser rebuild of Joe Martin's January 2007 Sherline Products 60-degree single-point thread calculator. Inch and metric bolt and nut dimensions from OD, TPI, or pitch.">
+<meta name="description" content="Browser rebuild of Joe Martin's January 2007 Sherline Products 60-degree single-point thread calculator. Inch and metric bolt and nut dimensions from OD, TPI, or pitch, plus standard 60° three-wire measurement.">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -20,7 +22,7 @@
   <nav class="header-actions">
     <button type="button" class="btn" onclick="window.print()">Print</button>
     <a class="btn" href="help.html">Guide</a>
-    <a class="btn btn-help" id="btnHelp" href="https://grok.com/?q=I%27m%20using%20Ram-Gear%27s%2060%C2%B0%20Thread%20Calc%20app%2C%20a%20browser%20rebuild%20of%20Joe%20Martin%27s%20January%202007%20Sherline%20Products%2060-degree%20single-point%20thread%20calculator.%20It%20has%20side-by-side%20Inch%20and%20Metric%20calculators%20that%20take%20outside%20diameter%20plus%20threads%20per%20inch%20or%20pitch%20and%20compute%20external%20bolt%20thread%20depths%20%28P%2F8%20flat%20and%20sharp%20vee%29%20and%20internal%20nut%20hole%20diameter%20and%20thread%20depth.%20Can%20you%20give%20me%20pointers%20on%20how%20to%20use%20it%3F" target="_blank" rel="noopener" title="Ask Grok how to use 60° Thread Calc (opens in a new tab)">? Help</a>
+    <a class="btn btn-help" id="btnHelp" href="https://grok.com/?q=I%27m%20using%20Ram-Gear%27s%2060%C2%B0%20Thread%20Calc%20app%2C%20a%20browser%20rebuild%20of%20Joe%20Martin%27s%20January%202007%20Sherline%20Products%2060-degree%20single-point%20thread%20calculator.%20It%20has%20side-by-side%20Inch%20and%20Metric%20calculators%20that%20take%20outside%20diameter%20plus%20threads%20per%20inch%20or%20pitch%20and%20compute%20external%20bolt%20thread%20depths%20%28P%2F8%20flat%20and%20sharp%20vee%29%20and%20internal%20nut%20hole%20diameter%20and%20thread%20depth%2C%20plus%20a%20Three-Wire%20Measurement%20panel%20for%20best-size%20wire%20diameter%20and%20measurement%20over%20wires.%20Can%20you%20give%20me%20pointers%20on%20how%20to%20use%20it%3F" target="_blank" rel="noopener" title="Ask Grok how to use 60° Thread Calc (opens in a new tab)">? Help</a>
   </nav>
 </header>
 <div class="print-only print-head">
@@ -29,7 +31,7 @@
   <div>Original calculator by Joe Martin, Sherline Products Inc., January 2007</div>
 </div>
 <main class="layout">
-  <p class="lead">Handy calculator for dimensions needed to single-point standard 60° threads. Enter outside diameter and threads per inch (inch) or pitch (metric). Outputs update as you type. Answers are for general shop use.</p>
+  <p class="lead">Handy calculator for dimensions needed to single-point standard 60° threads. Enter outside diameter and threads per inch (inch) or pitch (metric). A third panel adds three-wire measurement of pitch diameter. Outputs update as you type. Answers are for general shop use.</p>
   <div class="cols">
     <section class="card" aria-labelledby="inchTitle">
       <h2 id="inchTitle">INCH 60°THREADS</h2>
@@ -160,6 +162,115 @@
         <output class="val" id="G18">0.0000</output>
         <span class="unit">"</span>
       </div>
+    </section>
+
+    <section class="card" aria-labelledby="wireTitle">
+      <h2 id="wireTitle">THREE-WIRE MEASUREMENT</h2>
+      <div class="unit-toggle" role="group" aria-label="Measurement units">
+        <button type="button" class="seg active" id="wireUnitInch" aria-pressed="true">Inch (TPI)</button>
+        <button type="button" class="seg" id="wireUnitMetric" aria-pressed="false">Metric (mm)</button>
+      </div>
+      <div class="copy-actions">
+        <button type="button" class="btn" id="btnCopyInch">Copy from Inch</button>
+        <button type="button" class="btn" id="btnCopyMetric">Copy from Metric</button>
+      </div>
+
+      <div class="row input-row" id="wireTpiRow">
+        <label for="wireTPI">TPI</label>
+        <input id="wireTPI" inputmode="decimal" value="0">
+        <span class="unit"></span>
+      </div>
+      <div class="row input-row" id="wirePitchRow" hidden>
+        <label for="wirePitch">PITCH</label>
+        <input id="wirePitch" inputmode="decimal" value="0">
+        <span class="unit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">PITCH</span>
+        <output class="val" id="wireP_prim">0.00000</output>
+        <span class="unit" id="wireP_primUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl"></span>
+        <output class="val" id="wireP_alt">0.000</output>
+        <span class="unit" id="wireP_altUnit">mm</span>
+      </div>
+
+      <div class="row input-row">
+        <label for="wireW">WIRE DIAMETER (W)</label>
+        <input id="wireW" inputmode="decimal" value="" placeholder="Best wire">
+        <span class="unit" id="wireWUnit">"</span>
+      </div>
+      <div class="row input-row">
+        <label for="wireOD">OUTSIDE DIAMETER</label>
+        <input id="wireOD" inputmode="decimal" value="0">
+        <span class="unit" id="wireODUnit">"</span>
+      </div>
+      <div class="row input-row">
+        <label for="wireE">PITCH DIAMETER (E)</label>
+        <input id="wireE" inputmode="decimal" value="" placeholder="From OD">
+        <span class="unit" id="wireEUnit">"</span>
+      </div>
+
+      <div class="section">RESULTS</div>
+      <div class="row">
+        <span class="lbl">BEST WIRE DIA.</span>
+        <output class="val" id="wireWBest_prim">0.00000</output>
+        <span class="unit" id="wireWBest_primUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl"></span>
+        <output class="val" id="wireWBest_alt">0.000</output>
+        <span class="unit" id="wireWBest_altUnit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">WIRE DIA. USED <span class="badge-auto" id="wireAutoHint">auto: best</span></span>
+        <output class="val" id="wireWUsed_prim">0.00000</output>
+        <span class="unit" id="wireWUsed_primUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl"></span>
+        <output class="val" id="wireWUsed_alt">0.000</output>
+        <span class="unit" id="wireWUsed_altUnit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">PITCH DIAMETER (E) <span class="badge-auto" id="wireEHint" hidden>from OD</span></span>
+        <output class="val" id="wireEOut_prim">0.0000</output>
+        <span class="unit" id="wireEOut_primUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl"></span>
+        <output class="val" id="wireEOut_alt">0.000</output>
+        <span class="unit" id="wireEOut_altUnit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">OVER-WIRE MEASUREMENT (M)</span>
+        <output class="val" id="wireMOut_prim">0.0000</output>
+        <span class="unit" id="wireMOut_primUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl"></span>
+        <output class="val" id="wireMOut_alt">0.000</output>
+        <span class="unit" id="wireMOut_altUnit">mm</span>
+      </div>
+
+      <div class="section">CHECK MEASURED OVER WIRES</div>
+      <div class="row input-row">
+        <label for="wireM">MEASURED OVER WIRES (M)</label>
+        <input id="wireM" inputmode="decimal" value="" placeholder="Optional">
+        <span class="unit" id="wireMUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">ACTUAL PITCH DIA. (E)</span>
+        <output class="val" id="wireActualE_prim">0.0000</output>
+        <span class="unit" id="wireActualE_primUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl"></span>
+        <output class="val" id="wireActualE_alt">0.000</output>
+        <span class="unit" id="wireActualE_altUnit">mm</span>
+      </div>
+      <p class="formula-note">Best wire W = 0.57735 × P; M = E + 3W − 0.86603 × P, which equals E + 0.86603 × P at best-size wire. Conversions in this panel use 25.4 mm/in.</p>
     </section>
   </div>
   <div class="actions">

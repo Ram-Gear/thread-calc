@@ -62,11 +62,87 @@
 
   function format(value, kind) {
     if (!Number.isFinite(value)) return "";
-    const digits = kind === "in5" ? 5 : kind === "in4" || kind === "in" ? 4 : kind === "tpi" || kind === "mm" ? 2 : 4;
+    const digits = kind === "in5" ? 5 : kind === "in4" || kind === "in" ? 4 : kind === "tpi" || kind === "mm" ? 2 : kind === "mm3" ? 3 : 4;
     return value.toFixed(digits);
   }
 
-  const api = { IN, FLAT, VEE, NUT, num, inchPitch, metricTPI, calcInch, calcMetric, format };
+  // Standard 60° three-wire measurement. Uses exact 25.4 and 1/sqrt(3);
+  // Joe Martin's 0.03937 / 0.6496 / 0.7578 / 0.5412 stay isolated to the Inch/Metric panels above.
+  const MM = 25.4;
+  const BEST_WIRE = 1 / Math.sqrt(3);         // 0.5773502691896257 ≈ 0.57735
+  const WIRE_CONST = Math.sqrt(3) / 2;        // 0.8660254037844386 ≈ 0.86603
+  const E_FACTOR = 0.6495190528;              // basic pitch diameter: E = OD − 0.6495190528 × P
+
+  function isBlank(v) {
+    return v == null || String(v).trim() === "";
+  }
+
+  function threeWirePitch(unit, tpi, pitch) {
+    if (unit === "metric") {
+      const p = num(pitch);
+      return p > 0 ? p : 0;
+    }
+    const t = num(tpi);
+    return t > 0 ? 1 / t : 0;
+  }
+
+  function bestWire(p) {
+    p = num(p);
+    return p > 0 ? BEST_WIRE * p : 0;
+  }
+
+  function wireUsed(p, wire) {
+    const W_best = bestWire(p);
+    if (isBlank(wire)) return { W: W_best, wireAuto: true };
+    const w = num(wire);
+    if (w > 0) return { W: w, wireAuto: false };
+    return { W: 0, wireAuto: false };
+  }
+
+  function pitchDiameter(p, e, od) {
+    const eNum = isBlank(e) ? 0 : num(e);
+    if (eNum > 0) return { E: eNum, eFromOd: false };
+    const odNum = num(od);
+    if (odNum > 0 && p > 0) return { E: odNum - E_FACTOR * p, eFromOd: true };
+    return { E: 0, eFromOd: false };
+  }
+
+  function measurementOverWires(E, W, P) {
+    if (!(P > 0 && W > 0)) return 0;
+    return E + 3 * W - WIRE_CONST * P;
+  }
+
+  function actualPitchDia(measuredM, W, P) {
+    const M = num(measuredM);
+    if (!(M > 0 && P > 0 && W > 0)) return 0;
+    return M - 3 * W + WIRE_CONST * P;
+  }
+
+  function calcThreeWire(opts) {
+    opts = opts || {};
+    const unit = opts.unit === "metric" ? "metric" : "inch";
+    const P = threeWirePitch(unit, opts.tpi, opts.pitch);
+    const W_best = bestWire(P);
+    const used = wireUsed(P, opts.wire);
+    const W = used.W;
+    const pd = pitchDiameter(P, opts.e, opts.od);
+    const E = pd.E;
+    const M = measurementOverWires(E, W, P);
+    const actualE = actualPitchDia(opts.measuredM, W, P);
+    const toIn = (v) => unit === "metric" ? v / MM : v;
+    const toMm = (v) => unit === "metric" ? v : v * MM;
+    return {
+      unit, P, W_best, W, wireAuto: used.wireAuto, E, eFromOd: pd.eFromOd, M, actualE,
+      P_in: toIn(P), W_best_in: toIn(W_best), W_in: toIn(W), E_in: toIn(E), M_in: toIn(M), actualE_in: toIn(actualE),
+      P_mm: toMm(P), W_best_mm: toMm(W_best), W_mm: toMm(W), E_mm: toMm(E), M_mm: toMm(M), actualE_mm: toMm(actualE)
+    };
+  }
+
+  const api = {
+    IN, FLAT, VEE, NUT, num, inchPitch, metricTPI, calcInch, calcMetric, format,
+    MM, BEST_WIRE, WIRE_CONST, E_FACTOR, isBlank, threeWirePitch, bestWire, wireUsed,
+    pitchDiameter, measurementOverWires, actualPitchDia, calcThreeWire
+  };
   root.ThreadCalc = api;
   if (typeof module !== "undefined") module.exports = api;
 })(typeof window !== "undefined" ? window : globalThis);

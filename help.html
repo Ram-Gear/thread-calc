@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>60° Thread Calc Guide | Ram-Gear Manufacturing</title>
 <link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -18,18 +20,19 @@
   </div>
   <nav class="header-actions">
     <a class="btn" href="index.html">Back to app</a>
-    <a class="btn btn-help" href="https://grok.com/?q=Please%20read%20the%20Ram-Gear%2060%C2%B0%20Thread%20Calc%20help%20page%20first%3A%20https%3A%2F%2Fram-gear.github.io%2Fthread-calc%2Fhelp.html%20Then%20give%20me%20pointers%20on%20using%20this%20Sherline%2060-degree%20single-point%20thread%20calculator%20%28outside%20diameter%20plus%20TPI%20or%20pitch%2C%20bolt%20thread%20depths%2C%20and%20nut%20hole%20diameter%29." target="_blank" rel="noopener">? Help</a>
+    <a class="btn btn-help" href="https://grok.com/?q=Please%20read%20the%20Ram-Gear%2060%C2%B0%20Thread%20Calc%20help%20page%20first%3A%20https%3A%2F%2Fram-gear.github.io%2Fthread-calc%2Fhelp.html%20Then%20give%20me%20pointers%20on%20using%20this%20Sherline%2060-degree%20single-point%20thread%20calculator%20%28outside%20diameter%20plus%20TPI%20or%20pitch%2C%20bolt%20thread%20depths%2C%20nut%20hole%20diameter%2C%20and%20the%20three-wire%20measurement%20panel%29." target="_blank" rel="noopener">? Help</a>
   </nav>
 </header>
 <main class="layout">
   <section class="card">
     <h2>How to use it</h2>
-    <p>This is a browser rebuild of Joe Martin’s January 2007 Sherline Products 60° single-point thread calculator. There are two independent calculators side by side:</p>
+    <p>This is a browser rebuild of Joe Martin’s January 2007 Sherline Products 60° single-point thread calculator, with a third panel for three-wire measurement. The Inch and Metric calculators are independent:</p>
     <ul>
       <li><strong>INCH 60°THREADS</strong> — enter <em>Outside Diameter</em> (inches) and <em>Threads Per Inch</em>.</li>
       <li><strong>METRIC 60° THREADS</strong> — enter <em>Outside Diameter</em> (mm) and <em>Pitch</em> (mm).</li>
+      <li><strong>THREE-WIRE MEASUREMENT</strong> — measure pitch diameter over wires; see the section below.</li>
     </ul>
-    <p>Those four cells are the only inputs, matching the original spreadsheet. Everything else is calculated and read-only. Values update as you type. <strong>Reset</strong> returns all four inputs to 0, the sheet’s starting state. <strong>Print</strong> in the header makes a clean shop printout.</p>
+    <p>On the original Inch and Metric panels, those four cells are the only inputs, matching the spreadsheet. Everything else on those two cards is calculated and read-only. Values update as you type. <strong>Reset</strong> returns the Inch and Metric inputs to 0 (the sheet’s starting state) and clears the three-wire panel. <strong>Print</strong> in the header makes a clean shop printout.</p>
   </section>
   <section class="card" style="margin-top:1.1rem">
     <h2>What it calculates</h2>
@@ -41,6 +44,23 @@
     <p><code>Nut hole dia. = OD − 2 × (0.5412 × pitch)</code></p>
     <p>On both sides, the nut row labeled <strong>THREAD DEPTH - SHARP VEE</strong> (metric label is <strong>THREAD DEPTH -SHARP VEE</strong>) actually uses the P/8 flat factor <code>0.6496</code>, not <code>0.7578</code>. The web app keeps that as written.</p>
     <p>If TPI or pitch is zero or negative, pitch/TPI outputs are shown as 0. The original Excel <code>IF</code> would display FALSE for a negative input.</p>
+  </section>
+
+  <section class="card" style="margin-top:1.1rem">
+    <h2>Three-wire measurement</h2>
+    <p>The third card uses the standard 60° three-wire method. Switch <strong>Inch (TPI)</strong> or <strong>Metric (mm)</strong> with the segmented toggle. <strong>Copy from Inch</strong> and <strong>Copy from Metric</strong> copy outside diameter and TPI or pitch from the other cards and leave Pitch Diameter (E) blank so it can be computed from OD.</p>
+    <ul>
+      <li>Enter <em>TPI</em> (inch mode) or <em>Pitch</em> in mm (metric mode). Pitch is also shown in both units.</li>
+      <li><em>Wire Diameter (W)</em> is optional. Leave it blank to use the best-size wire; the results then show an <strong>auto: best</strong> hint. If you type a wire diameter greater than zero, that size is used instead.</li>
+      <li>Enter <em>Pitch Diameter (E)</em> directly, or leave it blank and enter <em>Outside Diameter</em>. When E is blank and OD is greater than zero, the basic pitch diameter is computed as <code>E = OD − 0.64951905 × P</code> and marked <strong>from OD</strong>.</li>
+    </ul>
+    <p>Best-size wire and measurement over wires:</p>
+    <p><code>W = 0.57735 × P</code> (exactly <code>P / √3</code>)</p>
+    <p><code>M = E + 3W − 0.86603 × P</code></p>
+    <p>At the best-size wire this simplifies to <code>M = E + 0.86603 × P</code>. The card reports best wire diameter, the wire diameter used, pitch diameter E, and over-wire measurement M, each in inches and millimeters.</p>
+    <p>Under <strong>Check Measured Over Wires</strong>, enter a measured M (greater than zero) to get the actual pitch diameter:</p>
+    <p><code>E = M − 3W + 0.86603 × P</code></p>
+    <p>Unit conversions in this panel use exact <code>25.4</code> mm/in. Joe Martin’s Inch and Metric panels still use the spreadsheet constant <code>0.03937</code> and are otherwise unchanged.</p>
   </section>
   <section class="card" style="margin-top:1.1rem">
     <h2>Original spreadsheet</h2>

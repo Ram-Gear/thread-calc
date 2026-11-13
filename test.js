@@ -94,6 +94,146 @@ near("const 0.7578", T.VEE, 0.7578);
 near("const 0.5412", T.NUT, 0.5412);
 near("const 0.03937", T.IN, 0.03937);
 
+// --- Three-wire measurement (standard 60°, exact 25.4; does not use 0.03937) ---
+near("BEST_WIRE is 1/sqrt(3)", T.BEST_WIRE, 1 / Math.sqrt(3));
+near("WIRE_CONST is sqrt(3)/2", T.WIRE_CONST, Math.sqrt(3) / 2);
+near("0.57735 agrees to 5 decimals", Number(T.BEST_WIRE.toFixed(5)), 0.57735);
+near("0.86603 agrees to 5 decimals", Number(T.WIRE_CONST.toFixed(5)), 0.86603);
+near("MM is exact 25.4", T.MM, 25.4);
+near("E_FACTOR 0.6495190528", T.E_FACTOR, 0.6495190528);
+// Three-wire must not reuse Joe Martin's 0.03937
+if (T.MM === T.IN || Math.abs(1 / T.MM - T.IN) < 1e-12) {
+  cases.push({ name: "three-wire 25.4 isolated from 0.03937", ok: false });
+  console.log("FAIL three-wire conversion must use 25.4, not 0.03937");
+} else {
+  cases.push({ name: "three-wire 25.4 isolated from 0.03937", ok: true });
+}
+
+// 1/4-20: OD 0.25 in, 20 TPI, blank wire (best), E from OD
+{
+  const P = 1 / 20;
+  const W_best = T.BEST_WIRE * P;
+  const E = 0.25 - T.E_FACTOR * P;
+  const M = E + 3 * W_best - T.WIRE_CONST * P;
+  const Mbest = E + T.WIRE_CONST * P; // identity at best-size wire
+  near("1/4-20 best-wire identity M = E + 0.866P", M, Mbest);
+  const r = T.calcThreeWire({ unit: "inch", tpi: 20, od: 0.25, wire: "", e: "" });
+  near("1/4-20 P", r.P, P);
+  near("1/4-20 W_best", r.W_best, W_best);
+  near("1/4-20 W auto equals best", r.W, W_best);
+  near("1/4-20 wireAuto", r.wireAuto ? 1 : 0, 1);
+  near("1/4-20 E from OD", r.E, E);
+  near("1/4-20 eFromOd", r.eFromOd ? 1 : 0, 1);
+  near("1/4-20 M", r.M, M);
+  near("1/4-20 M_in", r.M_in, M);
+  near("1/4-20 W_mm uses 25.4", r.W_best_mm, W_best * 25.4);
+  near("1/4-20 fmt best wire 0.02887", Number(T.format(r.W_best, "in5")), 0.02887);
+  near("fmt 0.57735/20 five decimals matches 1/sqrt(3)", Number((0.57735 / 20).toFixed(5)), Number(T.format(W_best, "in5")));
+  // Reverse: measured M should recover E
+  const back = T.calcThreeWire({ unit: "inch", tpi: 20, od: 0.25, wire: "", measuredM: r.M });
+  near("1/4-20 reverse M->E", back.actualE, E);
+}
+
+// 1/2-13: OD 0.5 in, 13 TPI
+{
+  const P = 1 / 13;
+  const W_best = T.BEST_WIRE * P;
+  const E = 0.5 - T.E_FACTOR * P;
+  const M = E + T.WIRE_CONST * P;
+  const r = T.calcThreeWire({ unit: "inch", tpi: 13, od: 0.5 });
+  near("1/2-13 P", r.P, P);
+  near("1/2-13 W_best", r.W_best, W_best);
+  near("1/2-13 E from OD", r.E, E);
+  near("1/2-13 M at best wire", r.M, M);
+  near("1/2-13 wireAuto when wire omitted", r.wireAuto ? 1 : 0, 1);
+}
+
+// M6×1.0: OD 6 mm, pitch 1.0 mm
+{
+  const P = 1.0;
+  const W_best = T.BEST_WIRE * P;
+  const E = 6 - T.E_FACTOR * P;
+  const M = E + T.WIRE_CONST * P;
+  const r = T.calcThreeWire({ unit: "metric", pitch: 1.0, od: 6, wire: "  ", e: "" });
+  near("M6x1.0 P", r.P, P);
+  near("M6x1.0 W_best", r.W_best, W_best);
+  near("M6x1.0 W (whitespace = auto)", r.W, W_best);
+  near("M6x1.0 wireAuto", r.wireAuto ? 1 : 0, 1);
+  near("M6x1.0 E from OD", r.E, E);
+  near("M6x1.0 M", r.M, M);
+  near("M6x1.0 W_in uses 25.4", r.W_best_in, W_best / 25.4);
+  near("M6x1.0 M_in", r.M_in, M / 25.4);
+  near("M6x1.0 fmt best wire 0.577 mm", Number(T.format(r.W_best, "mm3")), 0.577);
+  near("M6x1.0 fmt M 3 dec", Number(T.format(r.M, "mm3")), Number(M.toFixed(3)));
+  const back = T.calcThreeWire({ unit: "metric", pitch: 1, od: 6, measuredM: r.M });
+  near("M6x1.0 reverse M->E", back.actualE, E);
+}
+
+// Custom wire vs auto-blank best wire (1/4-20, custom W = 0.029)
+{
+  const auto = T.calcThreeWire({ unit: "inch", tpi: 20, od: 0.25, wire: "" });
+  const custom = T.calcThreeWire({ unit: "inch", tpi: 20, od: 0.25, wire: 0.029 });
+  const P = 1 / 20;
+  const E = 0.25 - T.E_FACTOR * P;
+  const Mcustom = E + 3 * 0.029 - T.WIRE_CONST * P;
+  near("custom wire W", custom.W, 0.029);
+  near("custom wire not auto", custom.wireAuto ? 1 : 0, 0);
+  near("custom wire M", custom.M, Mcustom);
+  near("custom M differs from best-wire M", Math.abs(custom.M - auto.M) > 1e-9 ? 1 : 0, 1);
+  near("auto still uses best when custom is a different call", auto.W, auto.W_best);
+  // string "0.029"
+  const c2 = T.calcThreeWire({ unit: "inch", tpi: "20", od: "0.25", wire: "0.029" });
+  near("custom wire from string", c2.W, 0.029);
+}
+
+// Direct E input takes precedence over OD
+{
+  const r = T.calcThreeWire({ unit: "inch", tpi: 20, od: 0.25, e: 0.2175, wire: "" });
+  near("direct E used", r.E, 0.2175);
+  near("direct E not from OD", r.eFromOd ? 1 : 0, 0);
+  const M = 0.2175 + T.WIRE_CONST * (1 / 20);
+  near("direct E M", r.M, M);
+}
+
+// Reverse check with an independent measured M (1/2-13, best wire)
+{
+  const W = T.BEST_WIRE / 13;
+  const measured = 0.5200;
+  const actualE = measured - 3 * W + T.WIRE_CONST / 13;
+  const r = T.calcThreeWire({ unit: "inch", tpi: 13, od: 0.5, measuredM: measured });
+  near("reverse independent M->E", r.actualE, actualE);
+  near("reverse still reports forward E from OD", r.E, 0.5 - T.E_FACTOR / 13);
+}
+
+// Zero / blank inputs stay clean zeros, never NaN
+{
+  const z = T.calcThreeWire({ unit: "inch", tpi: 0, od: 0, wire: "", e: "", measuredM: "" });
+  for (const k of ["P", "W_best", "W", "E", "M", "actualE", "P_in", "P_mm", "W_best_in", "W_best_mm", "M_in", "M_mm"]) {
+    near("zero " + k, z[k], 0);
+  }
+  near("zero wireAuto (blank wire)", z.wireAuto ? 1 : 0, 1);
+  near("blank tpi pitch 0", T.threeWirePitch("inch", "", ""), 0);
+  near("zero tpi pitch 0", T.threeWirePitch("inch", 0, 0), 0);
+  near("neg tpi pitch 0", T.threeWirePitch("inch", -20, 0), 0);
+  near("blank metric pitch 0", T.threeWirePitch("metric", 0, ""), 0);
+  near("neg metric pitch 0", T.threeWirePitch("metric", 0, -1), 0);
+  near("bestWire 0", T.bestWire(0), 0);
+  near("wireUsed 0 input is not auto", T.wireUsed(0.05, 0).wireAuto ? 1 : 0, 0);
+  near("wireUsed 0 input W is 0", T.wireUsed(0.05, "0").W, 0);
+  function eq(name, got, exp) {
+    const ok = got === exp;
+    cases.push({ name, got, exp, ok });
+    if (!ok) console.log("FAIL", name, "got", got, "expected", exp);
+  }
+  eq("fmt zero in5", T.format(0, "in5"), "0.00000");
+  eq("fmt zero in4", T.format(0, "in4"), "0.0000");
+  eq("fmt zero mm3", T.format(0, "mm3"), "0.000");
+  eq("fmt zero mm stays 2 dec (original)", T.format(0, "mm"), "0.00");
+  const empty = T.calcThreeWire({});
+  near("empty opts unit inch", empty.unit === "inch" ? 1 : 0, 1);
+  near("empty opts M", empty.M, 0);
+}
+
 const bad = cases.filter(c => !c.ok).length;
 console.log(`${cases.length - bad}/${cases.length} checks passed`);
 process.exit(bad ? 1 : 0);

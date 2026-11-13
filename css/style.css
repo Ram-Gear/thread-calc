@@ -55,26 +55,13 @@ input:focus{outline:2px solid var(--focus);outline-offset:0;border-color:var(--t
 .val{background:#f4f6f8;border-color:#d5dbe1;min-height:2rem;display:flex;align-items:center;justify-content:flex-end}
 .unit{color:var(--muted);font-size:.85rem}
 .actions{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0 0}
-.note,.quirk{
-  background:#fff;border:1px solid var(--line);border-top:5px solid #2E7386;border-radius:6px;
-  padding:1rem 1.15rem;margin-top:1.1rem;box-shadow:0 1px 2px rgba(0,0,0,.04)
-}
-.note h2,.quirk h2,details.sheet > summary{font-size:1.05rem;margin:0 0 .6rem}
-.note p{margin:.45rem 0}
-.note .credit{font-weight:700;margin-top:.8rem}
-.quirk{background:#f7fbf8}
-.quirk code{font-family:var(--mono);font-size:.85em;background:#eef3f4;padding:.05em .3em;border-radius:3px}
-details.sheet{margin-top:1.1rem;background:#fff;border:1px solid var(--line);border-top:5px solid #2E7386;border-radius:6px;padding:0 0 .6rem;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-details.sheet > summary{cursor:pointer;padding:1rem 1.15rem .5rem;font-weight:700}
-.sheet-wrap{overflow:auto;padding:0 1rem 1rem}
-table.sheet{border-collapse:collapse;font-family:var(--mono);font-size:12px;min-width:860px;background:#fff}
-table.sheet th,table.sheet td{border:1px solid #cfd6dc;padding:3px 6px;vertical-align:top;max-width:14rem}
-table.sheet th{background:#e8eef0;color:var(--steel);font-weight:700;text-align:center}
-table.sheet td.rn,table.sheet thead th:first-child{background:#e8eef0;text-align:center;color:var(--muted);width:2rem}
-table.sheet td.input{background:#e9f7ea;font-weight:600}
-table.sheet td.formula{background:#f4f8fa}
-table.sheet .fx{display:block;color:var(--teal-hover);font-size:10px;white-space:nowrap}
-.muted{color:var(--muted);font-size:.88rem}
+code{font-family:var(--mono);font-size:.85em;background:#eef3f4;padding:.05em .3em;border-radius:3px}
+.card p{margin:.45rem 0}
+.card ul{margin:.4rem 0 .6rem;padding-left:1.2rem}
+.card li{margin:.25rem 0}
+.wire-diagram{margin:1rem 0 0;padding:0;border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden}
+.wire-diagram img{display:block;width:100%;height:auto;max-width:100%;vertical-align:middle}
+.wire-diagram figcaption{font-size:.78rem;color:var(--muted);padding:.45rem .7rem .55rem;line-height:1.35;margin:0}
 .site-footer{max-width:1380px;margin:0 auto;padding:0 1.4rem 1.6rem;color:var(--muted);font-size:.85rem}
 .print-only{display:none}
 
@@ -110,10 +97,10 @@ table.sheet .fx{display:block;color:var(--teal-hover);font-size:10px;white-space
   .header-actions .btn:not(.btn-help){display:none}
 }
 @media print{
-  .site-header,.header-actions,.btn,details.sheet,nav,.copy-actions{display:none!important}
+  .site-header,.header-actions,.btn,nav,.copy-actions{display:none!important}
   .print-only.print-head{display:block;border-bottom:2px solid #000;padding-bottom:.25rem;margin-bottom:.7rem}
   body{background:#fff}
-  .card,.note,.quirk{box-shadow:none;break-inside:avoid}
+  .card{box-shadow:none;break-inside:avoid}
   .cols{grid-template-columns:1fr 1fr 1fr}
   .layout,.site-footer{max-width:none}
 }

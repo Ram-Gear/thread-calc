@@ -20,32 +20,35 @@
   </div>
   <nav class="header-actions">
     <a class="btn" href="index.html">Back to app</a>
-    <a class="btn btn-help" href="https://grok.com/?q=Please%20read%20the%20Ram-Gear%2060%C2%B0%20Thread%20Calc%20help%20page%20first%3A%20https%3A%2F%2Fram-gear.github.io%2Fthread-calc%2Fhelp.html%20Then%20give%20me%20pointers%20on%20using%20this%20Sherline%2060-degree%20single-point%20thread%20calculator%20%28outside%20diameter%20plus%20TPI%20or%20pitch%2C%20bolt%20thread%20depths%2C%20nut%20hole%20diameter%2C%20and%20the%20three-wire%20measurement%20panel%29." target="_blank" rel="noopener">? Help</a>
+    <a class="btn btn-help" href="https://grok.com/?q=Please%20read%20the%20Ram-Gear%2060%C2%B0%20Thread%20Calc%20help%20page%20first%3A%20https%3A%2F%2Fram-gear.github.io%2Fthread-calc%2Fhelp.html%20Then%20give%20me%20pointers%20on%20using%20this%2060-degree%20single-point%20and%20three-wire%20thread%20calculator%20%28outside%20diameter%20plus%20TPI%20or%20pitch%2C%20bolt%20thread%20depths%2C%20nut%20hole%20diameter%2C%20and%20the%20three-wire%20measurement%20panel%29." target="_blank" rel="noopener">? Help</a>
   </nav>
 </header>
 <main class="layout">
   <section class="card">
     <h2>How to use it</h2>
-    <p>This is a browser rebuild of Joe Martin’s January 2007 Sherline Products 60° single-point thread calculator, with a third panel for three-wire measurement. The Inch and Metric calculators are independent:</p>
+    <p>60° Thread Calc is a shop calculator for single-point 60° threads and three-wire measurement of pitch diameter. The Inch and Metric calculators are independent:</p>
     <ul>
       <li><strong>INCH 60°THREADS</strong> — enter <em>Outside Diameter</em> (inches) and <em>Threads Per Inch</em>.</li>
       <li><strong>METRIC 60° THREADS</strong> — enter <em>Outside Diameter</em> (mm) and <em>Pitch</em> (mm).</li>
       <li><strong>THREE-WIRE MEASUREMENT</strong> — measure pitch diameter over wires; see the section below.</li>
     </ul>
-    <p>On the original Inch and Metric panels, those four cells are the only inputs, matching the spreadsheet. Everything else on those two cards is calculated and read-only. Values update as you type. <strong>Reset</strong> returns the Inch and Metric inputs to 0 (the sheet’s starting state) and clears the three-wire panel. <strong>Print</strong> in the header makes a clean shop printout.</p>
+    <p>On the Inch and Metric cards, those four cells are the only inputs. Everything else on those two cards is calculated and read-only. Values update as you type. <strong>Reset</strong> returns the Inch and Metric inputs to 0 and clears the three-wire panel. <strong>Print</strong> in the header makes a clean shop printout.</p>
   </section>
   <section class="card" style="margin-top:1.1rem">
     <h2>What it calculates</h2>
-    <p>For a bolt (external thread): depth with a P/8 flat, and depth for a sharp vee, each in both inches and millimeters. For a nut (internal thread): recommended hole diameter and a thread depth, again in both units. The inch side also shows pitch in inches and mm; the metric side shows the equivalent threads per inch.</p>
+    <p>For a bolt (external thread): depth with a P/8 flat, and depth for a sharp vee, each in both inches and millimeters. For a nut (internal thread): recommended hole diameter and sharp-vee thread depth, again in both units. The inch side also shows pitch in inches and mm; the metric side shows the equivalent threads per inch.</p>
   </section>
   <section class="card" style="margin-top:1.1rem">
-    <h2>Constants and a spreadsheet quirk</h2>
-    <p>The original sheet uses <code>0.03937</code> to convert inches and millimeters (not 25.4), <code>0.6496</code> for P/8 flat depth, <code>0.7578</code> for sharp vee depth, and <code>0.5412</code> for the nut-hole calculation:</p>
-    <p><code>Nut hole dia. = OD − 2 × (0.5412 × pitch)</code></p>
-    <p>On both sides, the nut row labeled <strong>THREAD DEPTH - SHARP VEE</strong> (metric label is <strong>THREAD DEPTH -SHARP VEE</strong>) actually uses the P/8 flat factor <code>0.6496</code>, not <code>0.7578</code>. The web app keeps that as written.</p>
-    <p>If TPI or pitch is zero or negative, pitch/TPI outputs are shown as 0. The original Excel <code>IF</code> would display FALSE for a negative input.</p>
+    <h2>Thread constants &amp; formulas</h2>
+    <p>Unit conversions use exact <code>25.4</code> mm/in (<code>1 / 25.4</code>). Thread factors:</p>
+    <ul>
+      <li><code>0.6496</code> — bolt thread depth with a P/8 flat</li>
+      <li><code>0.7578</code> — bolt thread depth, sharp vee</li>
+      <li><code>0.5412</code> — nut-hole calculation: <code>Nut hole dia. = OD − 2 × (0.5412 × pitch)</code></li>
+      <li><code>0.8660</code> — nut thread depth, sharp vee</li>
+    </ul>
+    <p>If TPI or pitch is zero or negative, pitch/TPI and related depth outputs are shown as 0.</p>
   </section>
-
   <section class="card" style="margin-top:1.1rem">
     <h2>Three-wire measurement</h2>
     <p>The third card uses the standard 60° three-wire method. Switch <strong>Inch (TPI)</strong> or <strong>Metric (mm)</strong> with the segmented toggle. <strong>Copy from Inch</strong> and <strong>Copy from Metric</strong> copy outside diameter and TPI or pitch from the other cards and leave Pitch Diameter (E) blank so it can be computed from OD.</p>
@@ -60,17 +63,13 @@
     <p>At the best-size wire this simplifies to <code>M = E + 0.86603 × P</code>. The card reports best wire diameter, the wire diameter used, pitch diameter E, and over-wire measurement M, each in inches and millimeters.</p>
     <p>Under <strong>Check Measured Over Wires</strong>, enter a measured M (greater than zero) to get the actual pitch diameter:</p>
     <p><code>E = M − 3W + 0.86603 × P</code></p>
-    <p>Unit conversions in this panel use exact <code>25.4</code> mm/in. Joe Martin’s Inch and Metric panels still use the spreadsheet constant <code>0.03937</code> and are otherwise unchanged.</p>
-  </section>
-  <section class="card" style="margin-top:1.1rem">
-    <h2>Original spreadsheet</h2>
-    <p>Open <strong>Original Spreadsheet View (Sheet1)</strong> on the app page for a read-only grid of columns A–I and rows 1–20, including the formulas. Sheet2 and Sheet3 in the workbook are empty. The original <code>.xls</code> file was not modified.</p>
-  </section>
-  <section class="note">
-    <h2>Credit</h2>
-    <p>Original calculator by Joe Martin, Sherline Products Inc., Vista, CA, January 2007. <a href="https://www.sherline.com" target="_blank" rel="noopener">www.sherline.com</a>. Answers are for general shop use. Joe Martin and Sherline Products Inc. are not responsible for errors. Browser version by Ram-Gear Manufacturing Inc.</p>
+    <p>Unit conversions use exact <code>25.4</code> mm/in.</p>
+    <figure class="wire-diagram">
+      <img src="three-wire-diagram.svg" width="1100" height="720" alt="Cross-section diagram of 60-degree thread three-wire measurement: two wires seated in adjacent top grooves and one wire in the opposing bottom groove, with micrometer anvils reading measurement over wires M, plus pitch P, best-size wire diameter W, and pitch diameter E.">
+      <figcaption>Three-wire measurement of a 60° external thread. Best-size wires (W = 0.57735 × P) contact the flanks at the pitch diameter. Measurement over wires: M = E + 3W − 0.86603 × P.</figcaption>
+    </figure>
   </section>
 </main>
-<footer class="site-footer">Original calculator by Joe Martin (Sherline Products Inc., January 2007). Browser version by Ram-Gear Manufacturing Inc.</footer>
+<footer class="site-footer">60° Thread Calc · Ram-Gear Manufacturing Inc.</footer>
 </body>
 </html>

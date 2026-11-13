@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Verify calc.js against the Sheet1 formulas in Joe Martin's Jan 2007 spreadsheet. */
+/* Verify calc.js constants and three-wire formulas. */
 const T = require("./calc.js");
 
 const cases = [];
@@ -9,7 +9,7 @@ function near(name, got, exp, tol) {
   if (!ok) console.log("FAIL", name, "got", got, "expected", exp);
 }
 
-// Zeros (the sheet's initial state)
+// Zeros (initial state)
 {
   const i = T.calcInch(0, 0);
   const m = T.calcMetric(0, 0);
@@ -27,7 +27,7 @@ function near(name, got, exp, tol) {
   const C13 = C12 / T.IN;
   const C15 = od - 2 * (T.NUT * C6);
   const C16 = C15 / T.IN;
-  const C17 = C6 * T.FLAT;
+  const C17 = C6 * T.NUT_VEE;
   const C18 = C17 / T.IN;
   const r = T.calcInch(od, tpi);
   near("C6 1/2-13", r.C6, C6);
@@ -38,16 +38,11 @@ function near(name, got, exp, tol) {
   near("C13 sharp vee mm", r.C13, C13);
   near("C15 nut hole in", r.C15, C15);
   near("C16 nut hole mm", r.C16, C16);
-  near("C17 nut depth in (0.6496 quirk)", r.C17, C17);
+  near("C17 nut sharp vee in", r.C17, C17);
+  near("C17 equals 0.8660 * P", r.C17, 0.8660 * C6);
   near("C18 nut depth mm", r.C18, C18);
-  near("quirk C17 equals C10 not C12", r.C17, r.C10);
-  if (!(Math.abs(r.C17 - r.C12) > 1e-9)) {
-    cases.push({ name: "quirk C17 != C12", ok: false });
-    console.log("FAIL quirk C17 should not equal C12");
-  } else {
-    cases.push({ name: "quirk C17 != C12", ok: true });
-  }
-  // display formats from the sheet
+  near("C17 != C10 (P/8 flat)", Math.abs(r.C17 - r.C10) > 1e-9 ? 1 : 0, 1);
+  near("C17 != C12 (bolt sharp vee)", Math.abs(r.C17 - r.C12) > 1e-9 ? 1 : 0, 1);
   near("fmt C6 0.00000", Number(T.format(r.C6, "in5")), Number(C6.toFixed(5)));
   near("fmt C10 0.0000", Number(T.format(r.C10, "in4")), Number(C10.toFixed(4)));
   near("fmt C7 0.00", Number(T.format(r.C7, "mm")), Number(C7.toFixed(2)));
@@ -63,7 +58,7 @@ function near(name, got, exp, tol) {
   const G13 = G12 * T.IN;
   const G15 = od - 2 * (T.NUT * p);
   const G16 = G15 * T.IN;
-  const G17 = p * T.FLAT;
+  const G17 = p * T.NUT_VEE;
   const G18 = G17 * T.IN;
   const r = T.calcMetric(od, p);
   near("G6 M10x1.5 TPI", r.G6, G6);
@@ -73,12 +68,61 @@ function near(name, got, exp, tol) {
   near("G13 sharp vee in", r.G13, G13);
   near("G15 nut hole mm", r.G15, G15);
   near("G16 nut hole in", r.G16, G16);
-  near("G17 nut depth mm (0.6496 quirk)", r.G17, G17);
+  near("G17 nut sharp vee mm", r.G17, G17);
+  near("G17 equals 0.8660 * P", r.G17, 0.8660 * p);
   near("G18 nut depth in", r.G18, G18);
-  near("quirk G17 equals G10", r.G17, r.G10);
+  near("G17 != G10 (P/8 flat)", Math.abs(r.G17 - r.G10) > 1e-9 ? 1 : 0, 1);
 }
 
-// Safe handling of <= 0 (spreadsheet would show FALSE for pitch/TPI)
+// 1/4-20: OD 0.25 in, 20 TPI (Inch panel spot-check)
+{
+  const od = 0.25, tpi = 20;
+  const C6 = 1 / 20;
+  const C7 = C6 / T.IN;
+  const C10 = C6 * T.FLAT;
+  const C11 = C10 / T.IN;
+  const C12 = C6 * T.VEE;
+  const C13 = C12 / T.IN;
+  const C15 = od - 2 * (T.NUT * C6);
+  const C16 = C15 / T.IN;
+  const C17 = C6 * T.NUT_VEE;
+  const C18 = C17 / T.IN;
+  const r = T.calcInch(od, tpi);
+  near("1/4-20 C6 pitch in", r.C6, C6);
+  near("1/4-20 C7 uses 1/25.4", r.C7, C7);
+  near("1/4-20 C7 is 1.27 mm", r.C7, 1.27);
+  near("1/4-20 C10 P/8 flat", r.C10, C10);
+  near("1/4-20 C12 bolt sharp vee", r.C12, C12);
+  near("1/4-20 C15 nut hole", r.C15, C15);
+  near("1/4-20 C17 nut sharp vee", r.C17, 0.8660 * C6);
+  near("1/4-20 C17 != C10", Math.abs(r.C17 - r.C10) > 1e-9 ? 1 : 0, 1);
+  near("1/4-20 C18 uses 1/25.4", r.C18, C18);
+}
+
+// M6 × 1.0: OD 6 mm, pitch 1.0 mm (Metric panel spot-check)
+{
+  const od = 6, p = 1.0;
+  const G6 = 1 / (p * T.IN);
+  const G10 = p * T.FLAT;
+  const G11 = G10 * T.IN;
+  const G12 = p * T.VEE;
+  const G13 = G12 * T.IN;
+  const G15 = od - 2 * (T.NUT * p);
+  const G16 = G15 * T.IN;
+  const G17 = p * T.NUT_VEE;
+  const G18 = G17 * T.IN;
+  const r = T.calcMetric(od, p);
+  near("M6x1.0 G6 TPI uses 1/25.4", r.G6, 25.4);
+  near("M6x1.0 G10 P/8 flat", r.G10, G10);
+  near("M6x1.0 G11 uses 1/25.4", r.G11, G11);
+  near("M6x1.0 G12 bolt sharp vee", r.G12, G12);
+  near("M6x1.0 G15 nut hole", r.G15, G15);
+  near("M6x1.0 G17 nut sharp vee", r.G17, 0.8660);
+  near("M6x1.0 G17 != G10", Math.abs(r.G17 - r.G10) > 1e-9 ? 1 : 0, 1);
+  near("M6x1.0 G18 uses 1/25.4", r.G18, G18);
+}
+
+// Safe handling of <= 0
 near("inchPitch 0", T.inchPitch(0), 0);
 near("inchPitch -13", T.inchPitch(-13), 0);
 near("metricTPI 0", T.metricTPI(0), 0);
@@ -88,26 +132,21 @@ near("calcInch negative TPI pitch is 0", T.calcInch(0.5, -13).C6, 0);
 near("calcInch negative TPI nut hole = OD", T.calcInch(0.5, -13).C15, 0.5);
 near("calcMetric negative pitch TPI is 0", T.calcMetric(10, -1.5).G6, 0);
 
-// Constants from the sheet
+// Constants
+near("const IN is 1/25.4", T.IN, 1 / 25.4);
+near("const NUT_VEE 0.8660", T.NUT_VEE, 0.8660);
 near("const 0.6496", T.FLAT, 0.6496);
 near("const 0.7578", T.VEE, 0.7578);
 near("const 0.5412", T.NUT, 0.5412);
-near("const 0.03937", T.IN, 0.03937);
 
-// --- Three-wire measurement (standard 60°, exact 25.4; does not use 0.03937) ---
+// --- Three-wire measurement (standard 60°, exact 25.4) ---
 near("BEST_WIRE is 1/sqrt(3)", T.BEST_WIRE, 1 / Math.sqrt(3));
 near("WIRE_CONST is sqrt(3)/2", T.WIRE_CONST, Math.sqrt(3) / 2);
 near("0.57735 agrees to 5 decimals", Number(T.BEST_WIRE.toFixed(5)), 0.57735);
 near("0.86603 agrees to 5 decimals", Number(T.WIRE_CONST.toFixed(5)), 0.86603);
 near("MM is exact 25.4", T.MM, 25.4);
 near("E_FACTOR 0.6495190528", T.E_FACTOR, 0.6495190528);
-// Three-wire must not reuse Joe Martin's 0.03937
-if (T.MM === T.IN || Math.abs(1 / T.MM - T.IN) < 1e-12) {
-  cases.push({ name: "three-wire 25.4 isolated from 0.03937", ok: false });
-  console.log("FAIL three-wire conversion must use 25.4, not 0.03937");
-} else {
-  cases.push({ name: "three-wire 25.4 isolated from 0.03937", ok: true });
-}
+near("1/MM equals IN", 1 / T.MM, T.IN);
 
 // 1/4-20: OD 0.25 in, 20 TPI, blank wire (best), E from OD
 {
@@ -228,7 +267,7 @@ if (T.MM === T.IN || Math.abs(1 / T.MM - T.IN) < 1e-12) {
   eq("fmt zero in5", T.format(0, "in5"), "0.00000");
   eq("fmt zero in4", T.format(0, "in4"), "0.0000");
   eq("fmt zero mm3", T.format(0, "mm3"), "0.000");
-  eq("fmt zero mm stays 2 dec (original)", T.format(0, "mm"), "0.00");
+  eq("fmt zero mm stays 2 dec", T.format(0, "mm"), "0.00");
   const empty = T.calcThreeWire({});
   near("empty opts unit inch", empty.unit === "inch" ? 1 : 0, 1);
   near("empty opts M", empty.M, 0);

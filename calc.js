@@ -1,11 +1,11 @@
-/* Joe Martin's Sherline 60° single-point thread calculator (Jan 2007).
-   Cell-for-cell port of Sheet1. Constants and the nut "Sharp Vee" 0.6496 quirk are kept as-is.
-   The original IF() for pitch/TPI returns FALSE when the input is negative; this port returns 0. */
+/* 60° single-point thread calculator plus standard three-wire measurement.
+   Unit conversion uses 1/25.4. Nut sharp-vee thread depth uses 0.8660. */
 (function (root) {
-  const IN = 0.03937;
-  const FLAT = 0.6496; // P/8 flat factor (also used on the nut "Sharp Vee" rows)
-  const VEE = 0.7578;  // sharp vee factor
+  const IN = 1 / 25.4;
+  const FLAT = 0.6496; // bolt P/8 flat factor
+  const VEE = 0.7578;  // bolt sharp vee factor
   const NUT = 0.5412;  // nut-hole depth factor
+  const NUT_VEE = 0.8660; // nut sharp vee thread depth factor
 
   function num(v) {
     if (typeof v === "number") return Number.isFinite(v) ? v : 0;
@@ -13,7 +13,7 @@
     return Number.isFinite(n) ? n : 0;
   }
 
-  // C6 = IF(B8=0,0,IF(B8>0,1/B8)) — treat <= 0 as 0, never FALSE
+  // Pitch in inches from TPI — treat <= 0 as 0
   function inchPitch(tpi) {
     tpi = num(tpi);
     if (tpi === 0) return 0;
@@ -21,7 +21,7 @@
     return 0;
   }
 
-  // G6 = IF(F8=0,0,IF(F8>0,1/(F8*0.03937))) — treat <= 0 as 0, never FALSE
+  // TPI from metric pitch (mm), using IN = 1/25.4 — treat <= 0 as 0
   function metricTPI(pitch) {
     pitch = num(pitch);
     if (pitch === 0) return 0;
@@ -40,7 +40,7 @@
     const C13 = C12 / IN;
     const C15 = B6 - 2 * (NUT * C6);
     const C16 = C15 / IN;
-    const C17 = C6 * FLAT; // labeled Sharp Vee, uses 0.6496
+    const C17 = C6 * NUT_VEE;
     const C18 = C17 / IN;
     return { B6, B8, C6, C7, C10, C11, C12, C13, C15, C16, C17, C18 };
   }
@@ -55,7 +55,7 @@
     const G13 = G12 * IN;
     const G15 = F6 - 2 * (NUT * F8);
     const G16 = G15 * IN;
-    const G17 = F8 * FLAT; // labeled Sharp Vee, uses 0.6496
+    const G17 = F8 * NUT_VEE;
     const G18 = G17 * IN;
     return { F6, F8, G6, G10, G11, G12, G13, G15, G16, G17, G18 };
   }
@@ -66,8 +66,7 @@
     return value.toFixed(digits);
   }
 
-  // Standard 60° three-wire measurement. Uses exact 25.4 and 1/sqrt(3);
-  // Joe Martin's 0.03937 / 0.6496 / 0.7578 / 0.5412 stay isolated to the Inch/Metric panels above.
+  // Standard 60° three-wire measurement. Uses exact 25.4 and 1/sqrt(3).
   const MM = 25.4;
   const BEST_WIRE = 1 / Math.sqrt(3);         // 0.5773502691896257 ≈ 0.57735
   const WIRE_CONST = Math.sqrt(3) / 2;        // 0.8660254037844386 ≈ 0.86603
@@ -139,7 +138,7 @@
   }
 
   const api = {
-    IN, FLAT, VEE, NUT, num, inchPitch, metricTPI, calcInch, calcMetric, format,
+    IN, FLAT, VEE, NUT, NUT_VEE, num, inchPitch, metricTPI, calcInch, calcMetric, format,
     MM, BEST_WIRE, WIRE_CONST, E_FACTOR, isBlank, threeWirePitch, bestWire, wireUsed,
     pitchDiameter, measurementOverWires, actualPitchDia, calcThreeWire
   };

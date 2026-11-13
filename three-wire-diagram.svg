@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="1100" height="720" role="img" aria-labelledby="title desc">
+  <title id="title">Three-wire measurement of a 60° external thread</title>
+  <desc id="desc">Axial cross-section of a 60-degree external thread measured with three best-size wires and a micrometer. Two wires sit in adjacent top grooves and one wire sits in the opposing bottom groove, offset by half a pitch. The micrometer reads measurement over wires M. Best-size wire diameter W equals 0.57735 times pitch P. Wires contact the flanks at the pitch diameter E. M equals E plus 3W minus 0.86603 times P.</desc>
+  <defs>
+    <linearGradient id="anvilUp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1D2B33"/>
+      <stop offset="1" stop-color="#2B3D47"/>
+    </linearGradient>
+    <linearGradient id="anvilDn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2B3D47"/>
+      <stop offset="1" stop-color="#1D2B33"/>
+    </linearGradient>
+    <pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#e4eef1"/>
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#c3d4da" stroke-width="1.35"/>
+    </pattern>
+    <clipPath id="shaftClip">
+      <path d="M 410.800 182.071 L 465.625 182.071 L 476.375 182.071 L 505.410 232.360 L 522.590 232.360 L 551.625 182.071 L 562.375 182.071 L 591.410 232.360 L 608.590 232.360 L 637.625 182.071 L 648.375 182.071 L 677.410 232.360 L 694.590 232.360 L 723.625 182.071 L 734.375 182.071 L 763.410 232.360 L 780.590 232.360 L 809.625 182.071 L 820.375 182.071 L 918.200 182.071 L 918.200 533.929 L 863.375 533.929 L 852.625 533.929 L 823.590 483.640 L 806.410 483.640 L 777.375 533.929 L 766.625 533.929 L 737.590 483.640 L 720.410 483.640 L 691.375 533.929 L 680.625 533.929 L 651.590 483.640 L 634.410 483.640 L 605.375 533.929 L 594.625 533.929 L 565.590 483.640 L 548.410 483.640 L 519.375 533.929 L 508.625 533.929 L 410.800 533.929 L 410.800 182.071 Z"/>
+    </clipPath>
+  </defs>
+  <rect width="1100" height="720" fill="#ffffff"/>
+  <path d="M 410.800 182.071 L 465.625 182.071 L 476.375 182.071 L 505.410 232.360 L 522.590 232.360 L 551.625 182.071 L 562.375 182.071 L 591.410 232.360 L 608.590 232.360 L 637.625 182.071 L 648.375 182.071 L 677.410 232.360 L 694.590 232.360 L 723.625 182.071 L 734.375 182.071 L 763.410 232.360 L 780.590 232.360 L 809.625 182.071 L 820.375 182.071 L 918.200 182.071 L 918.200 533.929 L 863.375 533.929 L 852.625 533.929 L 823.590 483.640 L 806.410 483.640 L 777.375 533.929 L 766.625 533.929 L 737.590 483.640 L 720.410 483.640 L 691.375 533.929 L 680.625 533.929 L 651.590 483.640 L 634.410 483.640 L 605.375 533.929 L 594.625 533.929 L 565.590 483.640 L 548.410 483.640 L 519.375 533.929 L 508.625 533.929 L 410.800 533.929 L 410.800 182.071 Z" fill="#e4eef1" stroke="none"/>
+  <rect width="1100" height="720" fill="url(#hatch)" clip-path="url(#shaftClip)"/>
+  <path d="M 410.800 182.071 L 465.625 182.071 L 476.375 182.071 L 505.410 232.360 L 522.590 232.360 L 551.625 182.071 L 562.375 182.071 L 591.410 232.360 L 608.590 232.360 L 637.625 182.071 L 648.375 182.071 L 677.410 232.360 L 694.590 232.360 L 723.625 182.071 L 734.375 182.071 L 763.410 232.360 L 780.590 232.360 L 809.625 182.071 L 820.375 182.071 L 918.200 182.071 L 918.200 533.929 L 863.375 533.929 L 852.625 533.929 L 823.590 483.640 L 806.410 483.640 L 777.375 533.929 L 766.625 533.929 L 737.590 483.640 L 720.410 483.640 L 691.375 533.929 L 680.625 533.929 L 651.590 483.640 L 634.410 483.640 L 605.375 533.929 L 594.625 533.929 L 565.590 483.640 L 548.410 483.640 L 519.375 533.929 L 508.625 533.929 L 410.800 533.929 L 410.800 182.071 Z" fill="none" stroke="#2B3D47" stroke-width="2.4" stroke-linejoin="miter"/>
+  <line x1="388.800" y1="358.000" x2="940.200" y2="358.000" stroke="#2B3D47" stroke-width="1.35" stroke-dasharray="14 6 2.4 6" fill="none"/>
+  <line x1="418.800" y1="210.000" x2="910.200" y2="210.000" stroke="#2E7386" stroke-width="1.7" stroke-dasharray="9 6" fill="none"/><line x1="418.800" y1="506.000" x2="910.200" y2="506.000" stroke="#2E7386" stroke-width="1.7" stroke-dasharray="9 6" fill="none"/>
+  <circle cx="600.000" cy="197.587" r="24.826" fill="#9FD3E1" stroke="#2E7386" stroke-width="2.4"/><ellipse cx="592.056" cy="189.643" rx="7.944" ry="5.462" fill="#ffffff" opacity="0.55"/><line x1="595.500" y1="197.587" x2="604.500" y2="197.587" stroke="#2E7386" stroke-width="1.2"/><line x1="600.000" y1="193.087" x2="600.000" y2="202.087" stroke="#2E7386" stroke-width="1.2"/><circle cx="686.000" cy="197.587" r="24.826" fill="#9FD3E1" stroke="#2E7386" stroke-width="2.4"/><ellipse cx="678.056" cy="189.643" rx="7.944" ry="5.462" fill="#ffffff" opacity="0.55"/><line x1="681.500" y1="197.587" x2="690.500" y2="197.587" stroke="#2E7386" stroke-width="1.2"/><line x1="686.000" y1="193.087" x2="686.000" y2="202.087" stroke="#2E7386" stroke-width="1.2"/><circle cx="643.000" cy="518.413" r="24.826" fill="#9FD3E1" stroke="#2E7386" stroke-width="2.4"/><ellipse cx="635.056" cy="510.469" rx="7.944" ry="5.462" fill="#ffffff" opacity="0.55"/><line x1="638.500" y1="518.413" x2="647.500" y2="518.413" stroke="#2E7386" stroke-width="1.2"/><line x1="643.000" y1="513.913" x2="643.000" y2="522.913" stroke="#2E7386" stroke-width="1.2"/>
+  <rect x="557.174" y="132.761" width="171.652" height="40.000" rx="2" fill="url(#anvilUp)"/><line x1="557.174" y1="172.761" x2="728.826" y2="172.761" stroke="#2E7386" stroke-width="3.2" stroke-linecap="square"/><rect x="557.174" y="543.239" width="171.652" height="40.000" rx="2" fill="url(#anvilDn)"/><line x1="557.174" y1="543.239" x2="728.826" y2="543.239" stroke="#2E7386" stroke-width="3.2" stroke-linecap="square"/>
+  
+<text x="643.000" y="152.761"
+  text-anchor="middle" dominant-baseline="middle"
+  font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#EAF7EA">Micrometer anvil</text>
+<text x="643.000" y="563.239"
+  text-anchor="middle" dominant-baseline="middle"
+  font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#EAF7EA">Micrometer anvil</text>
+
+  <path d="M 787.480 220.427 A 30.960 30.960 0 0 0 756.520 220.427" fill="none" stroke="#2E7386" stroke-width="2.2"/><text x="772.000" y="197.359" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#2E7386">60°</text>
+  <line x1="600.000" y1="197.587" x2="600.000" y2="100.761" stroke="#2E7386" stroke-width="1.4" fill="none"/>
+<line x1="686.000" y1="197.587" x2="686.000" y2="100.761" stroke="#2E7386" stroke-width="1.4" fill="none"/>
+<line x1="600.000" y1="104.761" x2="686.000" y2="104.761" stroke="#2E7386" stroke-width="2" fill="none"/>
+<polygon points="609.000,108.541 600.000,104.761 609.000,100.981" fill="#2E7386"/>
+<polygon points="677.000,100.981 686.000,104.761 677.000,108.541" fill="#2E7386"/>
+<text x="643.000" y="82.761" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#1D2B33">Pitch (P)</text>
+  <line x1="557.174" y1="172.761" x2="356.800" y2="172.761" stroke="#2E7386" stroke-width="1.4"/>
+<line x1="557.174" y1="543.239" x2="356.800" y2="543.239" stroke="#2E7386" stroke-width="1.4"/>
+<line x1="362.800" y1="172.761" x2="362.800" y2="543.239" stroke="#2E7386" stroke-width="2"/>
+<polygon points="358.600,182.761 362.800,172.761 367.000,182.761" fill="#2E7386"/>
+<polygon points="367.000,533.239 362.800,543.239 358.600,533.239" fill="#2E7386"/>
+  
+<text text-anchor="end" font-family="Segoe UI, Arial, sans-serif" fill="#1D2B33">
+  <tspan x="346.800" y="330.000" font-size="26" font-weight="700">Measurement</tspan>
+  <tspan x="346.800" y="356.000" font-size="26" font-weight="700">over wires (M)</tspan>
+  <tspan x="346.800" y="382.000" font-size="16" font-weight="600" fill="#2E7386" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">M = E + 3W − 0.86603 × P</tspan>
+</text>
+
+  
+<text text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-weight="700" fill="#2E7386">
+  <tspan x="928.200" y="188.000" font-size="24">Pitch</tspan>
+  <tspan x="928.200" y="214.000" font-size="24">dia. (E)</tspan>
+</text>
+<text text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-weight="700" fill="#2E7386">
+  <tspan x="928.200" y="502.000" font-size="24">Pitch</tspan>
+  <tspan x="928.200" y="528.000" font-size="24">dia. (E)</tspan>
+</text>
+
+  
+<path d="M 705.018 181.629 L 721.018 96.761 L 908.200 96.761"
+  fill="none" stroke="#2E7386" stroke-width="1.6"/>
+<circle cx="705.018" cy="181.629" r="2.4" fill="#2E7386"/>
+<text text-anchor="start" font-family="Segoe UI, Arial, sans-serif" fill="#1D2B33">
+  <tspan x="916.200" y="88.761" font-size="26" font-weight="700">Wire dia. (W)</tspan>
+  <tspan x="916.200" y="114.761" font-size="17" font-weight="600" fill="#2E7386" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">W = 0.57735 × P</tspan>
+</text>
+
+</svg>

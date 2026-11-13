@@ -117,6 +117,11 @@
         <input id="metricPitch" inputmode="decimal" value="0">
         <span class="unit">mm</span>
       </div>
+      <div class="row">
+        <span class="lbl">PITCH IN INCHES</span>
+        <output class="val" id="G7" for="metricPitch">0.00000</output>
+        <span class="unit">"</span>
+      </div>
 
       <div class="section">BOLT - EXTERNAL THREAD</div>
       <div class="row">
@@ -152,7 +157,7 @@
         <span class="unit">"</span>
       </div>
       <div class="row">
-        <span class="lbl">THREAD DEPTH -SHARP VEE</span>
+        <span class="lbl">THREAD DEPTH - SHARP VEE</span>
         <output class="val" id="G17">0.00</output>
         <span class="unit">mm</span>
       </div>
@@ -163,120 +168,133 @@
       </div>
     </section>
 
-    <section class="card" aria-labelledby="wireTitle">
-      <h2 id="wireTitle">THREE-WIRE MEASUREMENT</h2>
-      <div class="unit-toggle" role="group" aria-label="Measurement units">
-        <button type="button" class="seg active" id="wireUnitInch" aria-pressed="true">Inch (TPI)</button>
-        <button type="button" class="seg" id="wireUnitMetric" aria-pressed="false">Metric (mm)</button>
-      </div>
-      <div class="copy-actions">
-        <button type="button" class="btn" id="btnCopyInch">Copy from Inch</button>
-        <button type="button" class="btn" id="btnCopyMetric">Copy from Metric</button>
-      </div>
-
-      <div class="row input-row" id="wireTpiRow">
-        <label for="wireTPI">TPI</label>
-        <input id="wireTPI" inputmode="decimal" value="0">
-        <span class="unit"></span>
-      </div>
-      <div class="row input-row" id="wirePitchRow" hidden>
-        <label for="wirePitch">PITCH</label>
-        <input id="wirePitch" inputmode="decimal" value="0">
-        <span class="unit">mm</span>
-      </div>
-      <div class="row">
-        <span class="lbl">PITCH</span>
-        <output class="val" id="wireP_prim">0.00000</output>
-        <span class="unit" id="wireP_primUnit">"</span>
-      </div>
-      <div class="row">
-        <span class="lbl"></span>
-        <output class="val" id="wireP_alt">0.000</output>
-        <span class="unit" id="wireP_altUnit">mm</span>
-      </div>
-
-      <div class="row input-row">
-        <label for="wireW">WIRE DIAMETER (W)</label>
-        <input id="wireW" inputmode="decimal" value="" placeholder="Best wire">
-        <span class="unit" id="wireWUnit">"</span>
-      </div>
-      <div class="row input-row">
-        <label for="wireOD">OUTSIDE DIAMETER</label>
-        <input id="wireOD" inputmode="decimal" value="0">
-        <span class="unit" id="wireODUnit">"</span>
-      </div>
-      <div class="row input-row">
-        <label for="wireE">PITCH DIAMETER (E)</label>
-        <input id="wireE" inputmode="decimal" value="" placeholder="From OD">
-        <span class="unit" id="wireEUnit">"</span>
-      </div>
-
-      <div class="section">RESULTS</div>
-      <div class="row">
-        <span class="lbl">BEST WIRE DIA.</span>
-        <output class="val" id="wireWBest_prim">0.00000</output>
-        <span class="unit" id="wireWBest_primUnit">"</span>
-      </div>
-      <div class="row">
-        <span class="lbl"></span>
-        <output class="val" id="wireWBest_alt">0.000</output>
-        <span class="unit" id="wireWBest_altUnit">mm</span>
-      </div>
-      <div class="row">
-        <span class="lbl">WIRE DIA. USED <span class="badge-auto" id="wireAutoHint">auto: best</span></span>
-        <output class="val" id="wireWUsed_prim">0.00000</output>
-        <span class="unit" id="wireWUsed_primUnit">"</span>
-      </div>
-      <div class="row">
-        <span class="lbl"></span>
-        <output class="val" id="wireWUsed_alt">0.000</output>
-        <span class="unit" id="wireWUsed_altUnit">mm</span>
-      </div>
-      <div class="row">
-        <span class="lbl">PITCH DIAMETER (E) <span class="badge-auto" id="wireEHint" hidden>from OD</span></span>
-        <output class="val" id="wireEOut_prim">0.0000</output>
-        <span class="unit" id="wireEOut_primUnit">"</span>
-      </div>
-      <div class="row">
-        <span class="lbl"></span>
-        <output class="val" id="wireEOut_alt">0.000</output>
-        <span class="unit" id="wireEOut_altUnit">mm</span>
-      </div>
-      <div class="row">
-        <span class="lbl">OVER-WIRE MEASUREMENT (M)</span>
-        <output class="val" id="wireMOut_prim">0.0000</output>
-        <span class="unit" id="wireMOut_primUnit">"</span>
-      </div>
-      <div class="row">
-        <span class="lbl"></span>
-        <output class="val" id="wireMOut_alt">0.000</output>
-        <span class="unit" id="wireMOut_altUnit">mm</span>
-      </div>
-
-      <div class="section">CHECK MEASURED OVER WIRES</div>
-      <div class="row input-row">
-        <label for="wireM">MEASURED OVER WIRES (M)</label>
-        <input id="wireM" inputmode="decimal" value="" placeholder="Optional">
-        <span class="unit" id="wireMUnit">"</span>
-      </div>
-      <div class="row">
-        <span class="lbl">ACTUAL PITCH DIA. (E)</span>
-        <output class="val" id="wireActualE_prim">0.0000</output>
-        <span class="unit" id="wireActualE_primUnit">"</span>
-      </div>
-      <div class="row">
-        <span class="lbl"></span>
-        <output class="val" id="wireActualE_alt">0.000</output>
-        <span class="unit" id="wireActualE_altUnit">mm</span>
-      </div>
-      <figure class="wire-diagram">
-        <img src="three-wire-diagram.svg" width="1100" height="720" alt="Three-wire measurement cross-section on 60-degree threads">
-        <figcaption>Three-wire measurement of a 60° external thread. Best-size wires (W = 0.57735 × P) contact the flanks at the pitch diameter. Measurement over wires: M = E + 3W − 0.86603 × P.</figcaption>
-      </figure>
-      <p class="wire-footnote"><strong>Note:</strong> Three wires are required for odd thread counts, and two wires for even thread counts.</p>
-      <p class="formula-note">Best wire W = 0.57735 × P; M = E + 3W − 0.86603 × P, which equals E + 0.86603 × P at best-size wire. Conversions use 25.4 mm/in.</p>
-    </section>
   </div>
+
+  <section class="card wire-card" aria-labelledby="wireTitle">
+    <h2 id="wireTitle">THREE-WIRE MEASUREMENT</h2>
+
+    <div class="wire-segments">
+      <div class="wire-seg wire-seg-inputs">
+        <div class="section">ENTRY INPUTS</div>
+        <div class="unit-toggle" role="group" aria-label="Measurement units">
+          <button type="button" class="seg active" id="wireUnitInch" aria-pressed="true">Inch (TPI)</button>
+          <button type="button" class="seg" id="wireUnitMetric" aria-pressed="false">Metric (mm)</button>
+        </div>
+        <div class="copy-actions">
+          <button type="button" class="btn" id="btnCopyInch">Copy from Inch</button>
+          <button type="button" class="btn" id="btnCopyMetric">Copy from Metric</button>
+        </div>
+        <div class="row input-row" id="wireTpiRow">
+          <label for="wireTPI">TPI</label>
+          <input id="wireTPI" inputmode="decimal" value="0">
+          <span class="unit"></span>
+        </div>
+        <div class="row input-row" id="wirePitchRow" hidden>
+          <label for="wirePitch">PITCH</label>
+          <input id="wirePitch" inputmode="decimal" value="0">
+          <span class="unit">mm</span>
+        </div>
+        <div class="row input-row">
+          <label for="wireW">WIRE DIAMETER (W)</label>
+          <input id="wireW" inputmode="decimal" value="" placeholder="Best wire">
+          <span class="unit" id="wireWUnit">"</span>
+        </div>
+        <div class="row input-row">
+          <label for="wireOD">OUTSIDE DIAMETER</label>
+          <input id="wireOD" inputmode="decimal" value="0">
+          <span class="unit" id="wireODUnit">"</span>
+        </div>
+        <div class="row input-row">
+          <label for="wireE">PITCH DIAMETER (E)</label>
+          <input id="wireE" inputmode="decimal" value="" placeholder="From OD">
+          <span class="unit" id="wireEUnit">"</span>
+        </div>
+
+        <div class="section">CHECK MEASURED OVER WIRES</div>
+        <div class="row input-row">
+          <label for="wireM">MEASURED OVER WIRES (M)</label>
+          <input id="wireM" inputmode="decimal" value="" placeholder="Optional">
+          <span class="unit" id="wireMUnit">"</span>
+        </div>
+      </div>
+
+      <div class="wire-seg wire-seg-specs">
+        <div class="section">WIRE SPECS</div>
+        <div class="row">
+          <span class="lbl">PITCH</span>
+          <output class="val" id="wireP_prim">0.00000</output>
+          <span class="unit" id="wireP_primUnit">"</span>
+        </div>
+        <div class="row">
+          <span class="lbl"></span>
+          <output class="val" id="wireP_alt">0.000</output>
+          <span class="unit" id="wireP_altUnit">mm</span>
+        </div>
+        <div class="row">
+          <span class="lbl">BEST WIRE DIA.</span>
+          <output class="val" id="wireWBest_prim">0.00000</output>
+          <span class="unit" id="wireWBest_primUnit">"</span>
+        </div>
+        <div class="row">
+          <span class="lbl"></span>
+          <output class="val" id="wireWBest_alt">0.000</output>
+          <span class="unit" id="wireWBest_altUnit">mm</span>
+        </div>
+        <div class="row">
+          <span class="lbl">WIRE DIA. USED <span class="badge-auto" id="wireAutoHint">auto: best</span></span>
+          <output class="val" id="wireWUsed_prim">0.00000</output>
+          <span class="unit" id="wireWUsed_primUnit">"</span>
+        </div>
+        <div class="row">
+          <span class="lbl"></span>
+          <output class="val" id="wireWUsed_alt">0.000</output>
+          <span class="unit" id="wireWUsed_altUnit">mm</span>
+        </div>
+        <div class="row">
+          <span class="lbl">PITCH DIAMETER (E) <span class="badge-auto" id="wireEHint" hidden>from OD</span></span>
+          <output class="val" id="wireEOut_prim">0.0000</output>
+          <span class="unit" id="wireEOut_primUnit">"</span>
+        </div>
+        <div class="row">
+          <span class="lbl"></span>
+          <output class="val" id="wireEOut_alt">0.000</output>
+          <span class="unit" id="wireEOut_altUnit">mm</span>
+        </div>
+        <div class="row">
+          <span class="lbl">OVER-WIRE MEASUREMENT (M)</span>
+          <output class="val" id="wireMOut_prim">0.0000</output>
+          <span class="unit" id="wireMOut_primUnit">"</span>
+        </div>
+        <div class="row">
+          <span class="lbl"></span>
+          <output class="val" id="wireMOut_alt">0.000</output>
+          <span class="unit" id="wireMOut_altUnit">mm</span>
+        </div>
+        <div class="row">
+          <span class="lbl">ACTUAL PITCH DIA. (E)</span>
+          <output class="val" id="wireActualE_prim">0.0000</output>
+          <span class="unit" id="wireActualE_primUnit">"</span>
+        </div>
+        <div class="row">
+          <span class="lbl"></span>
+          <output class="val" id="wireActualE_alt">0.000</output>
+          <span class="unit" id="wireActualE_altUnit">mm</span>
+        </div>
+      </div>
+
+      <div class="wire-seg wire-seg-diagram">
+        <div class="section">MEASUREMENT-OVER-PINS DIAGRAM</div>
+        <figure class="wire-diagram">
+          <img src="three-wire-diagram.svg" width="1100" height="720" alt="Three-wire measurement cross-section on 60-degree threads">
+          <figcaption>Three-wire measurement of a 60° external thread. Best-size wires (W = 0.57735 × P) contact the flanks at the pitch diameter. Measurement over wires: M = E + 3W − 0.86603 × P.</figcaption>
+        </figure>
+        <p class="wire-footnote"><strong>Note:</strong> Three wires are required for odd thread counts, and two wires for even thread counts.</p>
+      </div>
+    </div>
+
+    <p class="formula-note">Best wire W = 0.57735 × P; M = E + 3W − 0.86603 × P, which equals E + 0.86603 × P at best-size wire. Conversions use 25.4 mm/in.</p>
+  </section>
+
   <div class="actions">
     <button type="button" class="btn btn-primary" id="btnReset">Reset</button>
   </div>

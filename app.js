@@ -107,7 +107,7 @@
     C15: "in4", C16: "mm", C17: "in4", C18: "mm"
   };
   const metricMap = {
-    G6: "tpi", G10: "mm", G11: "in4", G12: "mm", G13: "in4",
+    G6: "tpi", G7: "in5", G10: "mm", G11: "in4", G12: "mm", G13: "in4",
     G15: "mm", G16: "in4", G17: "mm", G18: "in4"
   };
 

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>60° Thread Calc</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2E7386"/>
+      <stop offset="1" stop-color="#245E6E"/>
+    </linearGradient>
+  </defs>
+  <!-- placeholder tile in Shop Apps style; Art will design the App Hub icon -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- hex bolt head -->
+  <path d="M86 210 L86 302 L118 322 L118 190 Z" fill="#FFFFFF"/>
+  <path d="M70 232 L86 210 L86 302 L70 280 Z" fill="#9FD3E1"/>
+  <!-- shank + 60° thread profile -->
+  <path d="M118 214
+           H156
+           L176 188 L196 240
+           L216 188 L236 240
+           L256 188 L276 240
+           L296 188 L316 240
+           L336 188 L356 240
+           L376 188 L396 240
+           L416 214
+           H442 V298
+           H416
+           L396 272 L376 324
+           L356 272 L336 324
+           L316 272 L296 324
+           L276 272 L256 324
+           L236 272 L216 324
+           L196 272 L176 324
+           L156 298
+           H118 Z" fill="#FFFFFF"/>
+  <!-- 60° accent mark -->
+  <path d="M196 188 L216 240 L176 240 Z" fill="none" stroke="#9FD3E1" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M216 152 L196 188 L236 188 Z" fill="#9FD3E1"/>
+  <text x="256" y="430" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="72" font-weight="700" fill="#9FD3E1">60°</text>
+</svg>

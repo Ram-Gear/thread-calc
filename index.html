@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>60° Thread Calc – Sherline Single-Point Thread Calculator | Ram-Gear Manufacturing</title>
+<meta name="description" content="Browser rebuild of Joe Martin's January 2007 Sherline Products 60-degree single-point thread calculator. Inch and metric bolt and nut dimensions from OD, TPI, or pitch.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">
+    <img class="app-icon" src="icon.svg" width="46" height="46" alt="60° Thread Calc icon">
+    <div>
+      <div class="company">Ram-Gear Manufacturing Inc.</div>
+      <h1>60° Thread Calc <span class="sub">Sherline single-point thread calculator</span></h1>
+    </div>
+  </div>
+  <nav class="header-actions">
+    <button type="button" class="btn" onclick="window.print()">Print</button>
+    <a class="btn" href="help.html">Guide</a>
+    <a class="btn btn-help" id="btnHelp" href="https://grok.com/?q=I%27m%20using%20Ram-Gear%27s%2060%C2%B0%20Thread%20Calc%20app%2C%20a%20browser%20rebuild%20of%20Joe%20Martin%27s%20January%202007%20Sherline%20Products%2060-degree%20single-point%20thread%20calculator.%20It%20has%20side-by-side%20Inch%20and%20Metric%20calculators%20that%20take%20outside%20diameter%20plus%20threads%20per%20inch%20or%20pitch%20and%20compute%20external%20bolt%20thread%20depths%20%28P%2F8%20flat%20and%20sharp%20vee%29%20and%20internal%20nut%20hole%20diameter%20and%20thread%20depth.%20Can%20you%20give%20me%20pointers%20on%20how%20to%20use%20it%3F" target="_blank" rel="noopener" title="Ask Grok how to use 60° Thread Calc (opens in a new tab)">? Help</a>
+  </nav>
+</header>
+<div class="print-only print-head">
+  <div class="ptitle">60° Thread Calc – Single-Point 60° Thread Dimensions</div>
+  <div>Ram-Gear Manufacturing Inc. · Printed <span class="pdate"></span></div>
+  <div>Original calculator by Joe Martin, Sherline Products Inc., January 2007</div>
+</div>
+<main class="layout">
+  <p class="lead">Handy calculator for dimensions needed to single-point standard 60° threads. Enter outside diameter and threads per inch (inch) or pitch (metric). Outputs update as you type. Answers are for general shop use.</p>
+  <div class="cols">
+    <section class="card" aria-labelledby="inchTitle">
+      <h2 id="inchTitle">INCH 60°THREADS</h2>
+      <div class="row input-row">
+        <label for="inchOD">OUTSIDE DIAMETER</label>
+        <input id="inchOD" inputmode="decimal" value="0" aria-describedby="inchODUnit">
+        <span class="unit" id="inchODUnit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">PITCH</span>
+        <output class="val" id="C6" for="inchTPI">0.00000</output>
+        <span class="unit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl"></span>
+        <output class="val" id="C7" for="inchTPI">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+      <div class="row input-row">
+        <label for="inchTPI">THREADS PER INCH</label>
+        <input id="inchTPI" inputmode="decimal" value="0">
+        <span class="unit"></span>
+      </div>
+
+      <div class="section">BOLT - EXTERNAL THREAD</div>
+      <div class="row">
+        <span class="lbl">THREAD DEPTH - WITH P/8 FLAT</span>
+        <output class="val" id="C10">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DEPTH IN METRIC</span>
+        <output class="val" id="C11">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">THREAD DEPTH - SHARP VEE</span>
+        <output class="val" id="C12">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DEPTH IN METRIC</span>
+        <output class="val" id="C13">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+
+      <div class="section">NUT - INTERNAL THREAD</div>
+      <div class="row">
+        <span class="lbl">NUT HOLE DIA.</span>
+        <output class="val" id="C15">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DIAMETER IN METRIC</span>
+        <output class="val" id="C16">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">THREAD DEPTH - SHARP VEE</span>
+        <output class="val" id="C17">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DEPTH IN METRIC</span>
+        <output class="val" id="C18">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="metricTitle">
+      <h2 id="metricTitle">METRIC 60° THREADS</h2>
+      <div class="row input-row">
+        <label for="metricOD">OUTSIDE DIAMETER</label>
+        <input id="metricOD" inputmode="decimal" value="0" aria-describedby="metricODUnit">
+        <span class="unit" id="metricODUnit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">TPI</span>
+        <output class="val" id="G6" for="metricPitch">0.00</output>
+        <span class="unit"></span>
+      </div>
+      <div class="row input-row">
+        <label for="metricPitch">PITCH</label>
+        <input id="metricPitch" inputmode="decimal" value="0">
+        <span class="unit">mm</span>
+      </div>
+
+      <div class="section">BOLT - EXTERNAL THREAD</div>
+      <div class="row">
+        <span class="lbl">THREAD DEPTH - WITH P/8 FLAT</span>
+        <output class="val" id="G10">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DEPTH IN INCHES</span>
+        <output class="val" id="G11">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">THREAD DEPTH - SHARP VEE</span>
+        <output class="val" id="G12">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DEPTH IN INCHES</span>
+        <output class="val" id="G13">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+
+      <div class="section">NUT - INTERNAL THREAD</div>
+      <div class="row">
+        <span class="lbl">NUT HOLE DIA.</span>
+        <output class="val" id="G15">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DIAMETER IN INCHES</span>
+        <output class="val" id="G16">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+      <div class="row">
+        <span class="lbl">THREAD DEPTH -SHARP VEE</span>
+        <output class="val" id="G17">0.00</output>
+        <span class="unit">mm</span>
+      </div>
+      <div class="row">
+        <span class="lbl">DEPTH IN INCHES</span>
+        <output class="val" id="G18">0.0000</output>
+        <span class="unit">"</span>
+      </div>
+    </section>
+  </div>
+  <div class="actions">
+    <button type="button" class="btn btn-primary" id="btnReset">Reset</button>
+  </div>
+
+  <section class="note" aria-labelledby="joeNote">
+    <h2 id="joeNote">Joe Martin — January 2007, Sherline Products Inc.</h2>
+    <p><a href="https://www.sherline.com" target="_blank" rel="noopener">www.sherline.com</a></p>
+    <p>This calculator requires only two inputs: OD, TPI or pitch. Joe Martin wrote the Excel program because he couldn’t find a simple way of determining the hole size for a nut for non-standard threads. It has two separate calculators for inch or metric threads. The Excel sheet will only allow these required inputs. For convenience it produces both metric and inch answers; however, it used the same constants for calculations in both programs.</p>
+    <p>These answers are only intended for general shop use. Remember, threads, especially metric, can have complex specifications, and it’s up to you to determine the value of these calculations. If you find any errors, email joe(at)sherline.com.</p>
+    <p>Joe Martin or Sherline Products Inc. are not responsible for errors that could cause major problems to the end user. The program was developed for Joe’s own use and believed it would be useful to others. To add this calculator to a website, contact Craig at Sherline.</p>
+    <p class="credit">JOE MARTIN — JANUARY 2007</p>
+  </section>
+
+  <section class="quirk">
+    <h2>Spreadsheet constants and a kept quirk</h2>
+    <p>The original sheet converts units with <code>0.03937</code> (not 25.4). Thread factors are <code>0.6496</code> (P/8 flat), <code>0.7578</code> (sharp vee), and <code>0.5412</code> (nut-hole depth). On both the inch and metric sides, the nut row labeled <strong>THREAD DEPTH - SHARP VEE</strong> (metric: <strong>THREAD DEPTH -SHARP VEE</strong>) actually multiplies pitch by <code>0.6496</code>, the P/8 flat factor, not <code>0.7578</code>. This app keeps that as written.</p>
+  </section>
+
+  <details class="sheet" id="sheetView">
+    <summary>Original Spreadsheet View (Sheet1)</summary>
+    <p class="muted" style="padding:0 1.15rem">Read-only snapshot of Joe Martin’s January 2007 workbook, Sheet1 columns A–I and rows 1–20, with the sheet’s initial zeros and formulas. Sheet2 and Sheet3 are empty.</p>
+    <div class="sheet-wrap" id="sheetTable"></div>
+  </details>
+</main>
+<footer class="site-footer">Original calculator by Joe Martin (Sherline Products Inc., January 2007). Browser version by Ram-Gear Manufacturing Inc.</footer>
+<script src="calc.js"></script>
+<script src="app.js"></script>
+<script>(function(){const s=()=>document.querySelectorAll(".pdate").forEach(e=>e.textContent=new Date().toLocaleString());s();addEventListener("beforeprint",s);})();</script>
+</body>
+</html>

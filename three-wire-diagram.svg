@@ -43,12 +43,12 @@
   <line x1="557.174" y1="172.761" x2="728.826" y2="172.761" stroke="#2E7386" stroke-width="3.2" stroke-linecap="square"/>
   <rect x="557.174" y="543.239" width="171.652" height="40.000" rx="2" fill="url(#anvilDn)"/>
   <line x1="557.174" y1="543.239" x2="728.826" y2="543.239" stroke="#2E7386" stroke-width="3.2" stroke-linecap="square"/>
-  <text x="643.000" y="152.761" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#EAF7EA">Micrometer anvil</text>
-  <text x="643.000" y="563.239" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#EAF7EA">Micrometer anvil</text>
+  <text x="643.000" y="152.761" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" font-weight="700" fill="#EAF7EA">Micrometer anvil</text>
+  <text x="643.000" y="563.239" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="17.5" font-weight="700" fill="#EAF7EA">Micrometer anvil</text>
 
-  <!-- 60° included angle in an open top groove -->
-  <path d="M 752.650 213.724 A 38.700 38.700 0 0 0 791.350 213.724" fill="none" stroke="#2E7386" stroke-width="2.2"/>
-  <text x="772.000" y="166.071" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#2E7386">60°</text>
+  <!-- 60° included angle in the open top-left groove (center x=514) -->
+  <path d="M 494.650 213.724 A 38.700 38.700 0 0 0 533.350 213.724" fill="none" stroke="#2E7386" stroke-width="2.2"/>
+  <text x="514.000" y="146.000" text-anchor="middle" dominant-baseline="middle" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#2E7386">60°</text>
 
   <!-- Pitch (P): horizontal dimension above the anvil; extensions do not cross the anvil body -->
   <line x1="600.000" y1="132.761" x2="600.000" y2="104.761" stroke="#2E7386" stroke-width="1.4" fill="none"/>
@@ -84,7 +84,7 @@
   <line x1="666.982" y1="213.545" x2="705.018" y2="181.629" stroke="#2E7386" stroke-width="1.6" fill="none"/>
   <polygon points="697.600,184.626 705.018,181.629 700.779,188.413" fill="#2E7386"/>
   <polygon points="674.400,210.548 666.982,213.545 671.221,206.760" fill="#2E7386"/>
-  <path d="M 705.018 181.629 L 756.826 86.000 L 880.000 86.000" fill="none" stroke="#2E7386" stroke-width="1.6"/>
+  <path d="M 705.018 181.629 L 718.000 177.400 L 770.000 177.400 L 795.000 86.000 L 880.000 86.000" fill="none" stroke="#2E7386" stroke-width="1.6"/>
   <text text-anchor="start" font-family="Segoe UI, Arial, Helvetica, sans-serif" fill="#1D2B33">
     <tspan x="888.000" y="78.000" font-size="26" font-weight="700">Wire dia. (W)</tspan>
     <tspan x="888.000" y="102.000" font-size="16" font-weight="600" fill="#2E7386" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">Best W = 0.57735 × P</tspan>

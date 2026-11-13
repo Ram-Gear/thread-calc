@@ -49,7 +49,6 @@
     const F6 = num(od);
     const F8 = num(pitch);
     const G6 = metricTPI(F8);
-    const G7 = F8 * IN;
     const G10 = F8 * FLAT;
     const G11 = G10 * IN;
     const G12 = F8 * VEE;
@@ -58,7 +57,7 @@
     const G16 = G15 * IN;
     const G17 = F8 * NUT_VEE;
     const G18 = G17 * IN;
-    return { F6, F8, G6, G7, G10, G11, G12, G13, G15, G16, G17, G18 };
+    return { F6, F8, G6, G10, G11, G12, G13, G15, G16, G17, G18 };
   }
 
   function format(value, kind) {

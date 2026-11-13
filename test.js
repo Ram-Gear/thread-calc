@@ -52,7 +52,6 @@ function near(name, got, exp, tol) {
 {
   const od = 10, p = 1.5;
   const G6 = 1 / (p * T.IN);
-  const G7 = p * T.IN;
   const G10 = p * T.FLAT;
   const G11 = G10 * T.IN;
   const G12 = p * T.VEE;
@@ -63,8 +62,6 @@ function near(name, got, exp, tol) {
   const G18 = G17 * T.IN;
   const r = T.calcMetric(od, p);
   near("G6 M10x1.5 TPI", r.G6, G6);
-  near("G7 M10x1.5 pitch in", r.G7, G7);
-  near("G7 equals p * IN", r.G7, p * T.IN);
   near("G10 P/8 flat mm", r.G10, G10);
   near("G11 P/8 flat in", r.G11, G11);
   near("G12 sharp vee mm", r.G12, G12);
@@ -106,7 +103,6 @@ function near(name, got, exp, tol) {
 {
   const od = 6, p = 1.0;
   const G6 = 1 / (p * T.IN);
-  const G7 = p * T.IN;
   const G10 = p * T.FLAT;
   const G11 = G10 * T.IN;
   const G12 = p * T.VEE;
@@ -117,8 +113,6 @@ function near(name, got, exp, tol) {
   const G18 = G17 * T.IN;
   const r = T.calcMetric(od, p);
   near("M6x1.0 G6 TPI uses 1/25.4", r.G6, 25.4);
-  near("M6x1.0 G7 pitch in", r.G7, G7);
-  near("M6x1.0 G7 equals p * IN", r.G7, p * T.IN);
   near("M6x1.0 G10 P/8 flat", r.G10, G10);
   near("M6x1.0 G11 uses 1/25.4", r.G11, G11);
   near("M6x1.0 G12 bolt sharp vee", r.G12, G12);
